@@ -1,0 +1,55 @@
+<div class="container my-5">
+  <div class="card">
+    <div class="row g-0">
+      <div class="col-md-6 text-center h-50">
+        <img [src]="productDetails['images'][0]" height="200px" class="img-fluid rounded-start mt-2"
+          alt="Product Image" />
+        <div class="d-flex w-50 h-50">
+          @if(productDetails['images'].length > 1) {
+          <img [src]="productDetails['images'][1]" width="500px" height="100" class="img-fluid rounded-start mt-2"
+            alt="Product Image" />
+          <img [src]="productDetails['images'][2]" width="500px" height="100px" class="img-fluid rounded-start mt-2"
+            alt="Product Image" />
+          }
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card-body">
+          <h5 class="card-title">{{ productDetails.title }}</h5>
+          <p class="card-text text-muted">{{ productDetails.description }}</p>
+          <span class="text-muted" style="text-decoration: line-through">${{ productDetails?.price }}</span>
+          <span class="text-danger ms-2">${{ discountedPrice() }}</span>
+          <p class="text-muted small">
+            Suggested payments with 6 months special financing
+          </p>
+          @if(productDetails.stock > 0) {
+          <span class="badge bg-success mb-2">In stock</span>
+          } @else {
+          <span class="badge bg-danger mb-2">Out of stock</span>
+          }
+          <div class="mb-3">
+            <p>
+              @for (star of [].constructor(5);track $index) {
+              <i class="fa " [ngClass]="{
+                  'fa-star text-warning': $index < productDetails.rating,
+                  'fa-star-o': $index >= productDetails.rating
+                }"></i>
+              }
+            </p>
+          </div>
+          <div class="d-grid gap-2 mb-3 d-flex">
+            <button class="btn btn-success">Buy Now</button>
+            <button class="btn btn-outline-secondary">Add to Cart</button>
+          </div>
+          @if(productDetails.stock < 10) { <p class="text-white bg-danger text-center">
+            Only {{ productDetails.stock }} Items Left! Don't miss it
+            </p>
+            }@else {
+            <small class="fw-bold text-black">{{ productDetails.stock }} Items
+            </small>
+            }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

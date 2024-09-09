@@ -1,0 +1,53 @@
+<h1 class="text-center">Login</h1>
+<hr />
+<form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <input
+      type="email"
+      class="form-control"
+      id="exampleInputEmail1"
+      aria-describedby="emailHelp"
+      name="email"
+      ngModel
+      required
+      pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+      #email="ngModel"
+    />
+    @if (email.invalid && email.touched) {
+    <div id="emailError" class="form-text text-danger">
+      @if(email.hasError('required')) {
+      <span>Email is required</span>
+      } @if(email.hasError('pattern')) {
+      <span>Please enter a valid email address</span>
+      }
+    </div>
+    }
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      name="password"
+      ngModel
+      minlength="9"
+      required
+      #password="ngModel"
+      id="exampleInputPassword1"
+    />
+    @if(password.invalid && password.touched) {
+    <div id="passwordError" class="form-text text-danger">
+      @if(password.hasError('required')) {
+      <span>Password is required</span>
+      } @if(password.hasError('minlength')) {
+      <span>Password must be at least 9 characters</span>
+      }
+    </div>
+    }
+    <div id="emailHelp" class="form-text"></div>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
+    Submit
+  </button>
+</form>

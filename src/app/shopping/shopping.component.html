@@ -1,0 +1,53 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Cart</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th class="text-center">Quantity</th>
+        <th class="text-center">Remove</th>
+        <th>Price</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      @if (cartItems.length === 0) {
+      <h1 class="fs-1">there is no item in cart</h1>
+      }
+      @for(product of cartItems ; track $index){
+      <tr>
+        <td class="d-flex align-items-center">
+          <img style="width: 100px;" [src]="product['images'][0]" class="card-img-top img-fluid" alt="recipeItem.name" />
+          <div>
+            <strong>{{product.title}}</strong><br>
+            <small>{{product.description}}</small><br>
+            <small>Product Code: {{product.id}}</small>
+          </div>
+        </td>
+        <td>
+          <div class="input-group">
+            <button type="button" class="btn btn-success" (click)="increaseQuantity(product)">+</button>
+            <input aria-label="quantity"  type="number" class="form-control text-center" value="{{product.quantity}}"
+              readonly>
+            <button type="button" class="btn btn-danger" (click)="decreaseQuantity(product)">-</button>
+          </div>
+        </td>
+        <td>
+          <button type="button" class="btn btn-outline-danger" (click)="removeFromCart(product)">Remove</button>
+        </td>
+        <td><strong>{{product.price}}</strong><br>
+        </td>
+        <td>
+          <p>${{ product.price * product.quantity }}</p>
+        </td>
+      </tr>
+      }
+
+    </tbody>
+  </table>
+  <hr>
+  <div>
+    <p class="text-right">Total Items: {{ cartItems.length }} items</p>
+    <h4 class="text-end">Total Sum: ${{totalCartPrice}}</h4>
+  </div>
+</div>

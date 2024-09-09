@@ -1,0 +1,38 @@
+<div class="container mt-5">
+  <h4>Welcome to our Shopping website, Start Browsing...</h4>
+  <div class="row row-cols-1 row-cols-md-3 g-4 mt-3 mb-5">
+    @for (product of products; track product.id) {
+    <div class="col">
+      <div class="card">
+        @if (product.stock > 0) {
+        <span class="badge bg-success w-25 mt-3 mx-3">In Stock</span>
+        } @else {
+        <span class="badge bg-danger w-25 mt-3 mx-3">Out of Stock</span>
+        }
+        <img [src]="product['images'][0]" class="card-img-top" alt="..." width="200" height="300" />
+        <div class="card-body">
+          <div class="d-flex row">
+            <h5 class="col-md-9 card-title">{{ product.title }}</h5>
+            <p class="col-md-3 text-end">${{ product.price }}</p>
+          </div>
+          <p class="card-text">
+            {{ product.description }}
+          </p>
+          <div class="mb-3">
+            <p>
+              @for (star of [].constructor(5);track $index) {
+              <i class="fa " [ngClass]="{
+                    'fa-star text-warning': $index < product.rating,
+                    'fa-star-o': $index >= product.rating
+                  }"></i>
+              }
+            </p>
+          </div>
+          <a  class="btn btn-light layout-btn border-black rounded" (click)="addToCart(product)">Add to cart</a>
+          <a class="btn btn-primary layout-btn  rounded mx-3" (click)="ShowDetails(product.id)">View Details</a>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</div>

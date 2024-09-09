@@ -1,0 +1,77 @@
+<h1 class="text-center">Register</h1>
+<hr />
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Name</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+      formControlName="name" />
+    @if (registerForm.controls['name'].invalid && registerForm.controls['name'].touched) {
+    <div id="emailError" class="form-text text-danger">
+      @if(registerForm.controls['name'].hasError('required')) {
+      <span>Name is required</span>
+      }
+    </div>
+    }
+  </div>
+
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">User Name</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+      formControlName="username" />
+    @if (username?.invalid && username?.touched) {
+    <div id="emailError" class="form-text text-danger">
+      @if(username?.hasError('required')) {
+      <span>Username is required</span>
+      } @if(username?.hasError('cannotContainSpace')) {
+      <span>Username cannot contain space</span>
+      }
+    </div>
+    }
+  </div>
+
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+      formControlName="email" />
+    @if (email?.invalid && email?.touched) {
+    <div id="emailError" class="form-text text-danger">
+      @if(email?.hasError('required')) {
+      <span>Email is required</span>
+      } @if(email?.hasError('email')) {
+      <span>Please enter a valid email address</span>
+      }
+    </div>
+    }
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password" />
+    @if(password?.invalid && password?.touched) {
+    <div id="passwordError" class="form-text text-danger">
+      @if(password?.hasError('required')) {
+      <span>Password is required</span>
+      } @if(password?.hasError('pattern')) {
+      <span>Password must strong</span>
+      }
+    </div>
+    }
+  </div>
+
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" formControlName="confirmPassword" />
+    @if(confirmPassword?.invalid && confirmPassword?.touched) {
+    <div id="passwordError" class="form-text text-danger">
+      @if(confirmPassword?.hasError('required')) {
+      <span>ConfirmPassword is required</span>
+      } @if(registerForm.hasError('PasswordNoMatch')) {
+      <span>the passwords do not match</span>
+      }
+    </div>
+    }
+  </div>
+  <button type="submit"  class="btn btn-primary">
+    Register
+  </button>
+</form>
